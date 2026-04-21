@@ -1,0 +1,22 @@
+<!-- GoalsTracker root layout: navbar + content + notification toasts -->
+<app-navbar />
+
+<main class="min-h-screen bg-base-100">
+  <router-outlet />
+</main>
+
+<!-- Notification toast container -->
+<div class="toast toast-end toast-top z-50">
+  @for (msg of notifications.messages(); track msg.id) {
+    <div
+      class="alert shadow-lg cursor-pointer"
+      [class.alert-success]="msg.type === 'success'"
+      [class.alert-error]="msg.type === 'error'"
+      [class.alert-warning]="msg.type === 'warning'"
+      [class.alert-info]="msg.type === 'info'"
+      (click)="notifications.dismiss(msg.id)"
+    >
+      <span>{{ msg.text }}</span>
+    </div>
+  }
+</div>

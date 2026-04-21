@@ -1,0 +1,30 @@
+<!-- DaisyUI join pagination with prev/next and page numbers -->
+@if (totalPages() > 1) {
+  <div class="flex justify-center mt-4">
+    <div class="join">
+      <button
+        class="join-item btn btn-sm"
+        [disabled]="currentPage() <= 1"
+        (click)="goToPage(currentPage() - 1)"
+      >
+        &laquo;
+      </button>
+      @for (page of pages(); track page) {
+        <button
+          class="join-item btn btn-sm"
+          [class.btn-active]="page === currentPage()"
+          (click)="goToPage(page)"
+        >
+          {{ page }}
+        </button>
+      }
+      <button
+        class="join-item btn btn-sm"
+        [disabled]="currentPage() >= totalPages()"
+        (click)="goToPage(currentPage() + 1)"
+      >
+        &raquo;
+      </button>
+    </div>
+  </div>
+}

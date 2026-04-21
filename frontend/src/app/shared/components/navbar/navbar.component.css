@@ -1,0 +1,4 @@
+/* Navbar component styles - minimal overrides, DaisyUI handles most styling */
+:host {
+  display: block;
+}

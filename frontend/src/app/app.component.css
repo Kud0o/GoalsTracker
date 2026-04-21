@@ -1,0 +1,5 @@
+/* Root component styles - minimal, DaisyUI handles theming */
+:host {
+  display: block;
+  min-height: 100vh;
+}

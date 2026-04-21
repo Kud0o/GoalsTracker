@@ -1,0 +1,17 @@
+<!-- Empty state card with icon slot, title, message, and optional action -->
+<div class="card bg-base-100 shadow-sm max-w-md mx-auto">
+  <div class="card-body items-center text-center">
+    <div class="mb-4">
+      <ng-content select="[icon]"></ng-content>
+    </div>
+    <h2 class="card-title">{{ title() }}</h2>
+    @if (message()) {
+      <p class="text-base-content/70">{{ message() }}</p>
+    }
+    @if (actionLabel()) {
+      <div class="card-actions mt-4">
+        <button class="btn btn-primary" (click)="onAction()">{{ actionLabel() }}</button>
+      </div>
+    }
+  </div>
+</div>

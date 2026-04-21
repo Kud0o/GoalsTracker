@@ -1,0 +1,79 @@
+<!-- Responsive navbar with DaisyUI drawer for mobile -->
+<div class="drawer">
+  <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
+
+  <div class="drawer-content flex flex-col">
+    <!-- Top navbar -->
+    <div class="navbar bg-base-200 shadow-sm">
+      <!-- Mobile hamburger -->
+      <div class="flex-none lg:hidden">
+        <label for="nav-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+               class="inline-block h-6 w-6 stroke-current">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M4 6h16M4 12h16M4 18h16"></path>
+          </svg>
+        </label>
+      </div>
+
+      <!-- App title -->
+      <div class="flex-1">
+        <a routerLink="/dashboard" class="btn btn-ghost text-xl normal-case">GoalsTracker</a>
+      </div>
+
+      <!-- Desktop nav links -->
+      <div class="hidden flex-none lg:block">
+        <ul class="menu menu-horizontal px-1 gap-1">
+          <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+          <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
+          <li><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
+          <li><a routerLink="/analytics" routerLinkActive="active">Analytics</a></li>
+        </ul>
+      </div>
+
+      <!-- User controls -->
+      <div class="flex-none">
+        @if (auth.isAuthenticated()) {
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
+              <div class="bg-neutral text-neutral-content w-10 rounded-full">
+                <span class="text-sm">{{ auth.currentUser()?.userName?.charAt(0)?.toUpperCase() || 'U' }}</span>
+              </div>
+            </div>
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+              <li><a routerLink="/profile">Profile</a></li>
+              <li><a routerLink="/points">Points</a></li>
+              <li><a (click)="logout()">Logout</a></li>
+            </ul>
+          </div>
+        } @else {
+          <div class="flex gap-2">
+            <a routerLink="/login" class="btn btn-ghost btn-sm">Login</a>
+            <a routerLink="/register" class="btn btn-primary btn-sm">Register</a>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile sidebar drawer -->
+  <div class="drawer-side z-50">
+    <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu bg-base-200 min-h-full w-64 p-4 gap-1">
+      <li class="menu-title text-lg font-bold mb-2">GoalsTracker</li>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
+      <li><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
+      <li><a routerLink="/analytics" routerLinkActive="active">Analytics</a></li>
+      @if (auth.isAuthenticated()) {
+        <li class="mt-4 menu-title">Account</li>
+        <li><a routerLink="/profile">Profile</a></li>
+        <li><a routerLink="/points">Points</a></li>
+        <li><a (click)="logout()">Logout</a></li>
+      } @else {
+        <li class="mt-4"><a routerLink="/login">Login</a></li>
+        <li><a routerLink="/register">Register</a></li>
+      }
+    </ul>
+  </div>
+</div>

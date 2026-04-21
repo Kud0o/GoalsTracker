@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="GoalsTracker.Api.Tests/GoalsTracker.Api.Tests.csproj" />
+  <Project Path="GoalsTracker.Api/GoalsTracker.Api.csproj" />
+</Solution>
