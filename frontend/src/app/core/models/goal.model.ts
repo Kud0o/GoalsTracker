@@ -63,10 +63,16 @@ export interface Goal {
   status: number;
   /** ISO 8601 date when the goal was completed, if applicable. */
   completedAt: string | null;
+  /** Optional image URL for the goal. */
+  imageUrl: string | null;
   /** Points awarded upon completion. */
   pointsAwarded: number;
   /** ISO 8601 date when the goal was created. */
   createdAt: string;
+  /** Whether this goal was assigned by an admin. */
+  isAdminAssigned: boolean;
+  /** Name of the admin who assigned this goal, if applicable. */
+  assignedByAdminName: string | null;
 }
 
 /** Filter parameters for querying goals with pagination. */

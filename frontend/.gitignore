@@ -3,6 +3,7 @@
 # Compiled output
 /dist
 /tmp
+src/styles.built.css
 /out-tsc
 /bazel-out
 

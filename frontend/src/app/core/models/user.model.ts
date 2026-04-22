@@ -15,8 +15,8 @@ export interface User {
   timezone: string;
   /** Cumulative points earned from completing goals. */
   totalPoints: number;
-  /** Current achievement level name based on total points. */
-  achievementLevel: string;
+  /** Current achievement level based on total points. */
+  achievementLevel: string | { name: string; badgeIcon: string; colorHex: string };
   /** Whether the user opts in to appear on the public leaderboard. */
   isPublicOnLeaderboard: boolean;
   /** ISO 8601 date string of when the user registered. */
@@ -29,6 +29,8 @@ export interface TokenResponse {
   userId: string;
   /** Display name of the authenticated user. */
   userName: string;
+  /** First name of the authenticated user. */
+  firstName: string;
   /** JWT access token for API authorization. */
   token: string;
   /** Opaque refresh token for obtaining new access tokens. */

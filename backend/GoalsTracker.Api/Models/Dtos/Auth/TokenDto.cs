@@ -13,6 +13,9 @@ public class TokenDto
     /// <summary>The display name of the authenticated user.</summary>
     public string UserName { get; set; } = string.Empty;
 
+    /// <summary>The first name of the authenticated user.</summary>
+    public string FirstName { get; set; } = string.Empty;
+
     /// <summary>The JWT access token used for authenticating API requests.</summary>
     public string Token { get; set; } = string.Empty;
 

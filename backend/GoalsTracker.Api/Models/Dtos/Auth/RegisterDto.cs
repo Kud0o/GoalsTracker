@@ -9,6 +9,16 @@ namespace GoalsTracker.Api.Models.Dtos.Auth;
 /// </summary>
 public class RegisterDto
 {
+    /// <summary>The user's first name.</summary>
+    [Required]
+    [MaxLength(50)]
+    public string FirstName { get; set; } = string.Empty;
+
+    /// <summary>The user's last name.</summary>
+    [Required]
+    [MaxLength(50)]
+    public string LastName { get; set; } = string.Empty;
+
     /// <summary>The user's email address, used for login and notifications.</summary>
     [Required]
     [EmailAddress]

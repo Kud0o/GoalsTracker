@@ -56,6 +56,8 @@ public class AuthService : IAuthService
 
         var user = new User
         {
+            FirstName = dto.FirstName,
+            LastName = dto.LastName,
             Email = dto.Email,
             UserName = dto.UserName,
             Timezone = dto.Timezone ?? "UTC",
@@ -151,7 +153,7 @@ public class AuthService : IAuthService
     /// </summary>
     private async Task<TokenDto> GenerateTokenPairAsync(User user)
     {
-        var jwtToken = GenerateJwtToken(user);
+        var jwtToken = await GenerateJwtTokenAsync(user);
         var refreshToken = GenerateRefreshToken();
 
         await _userManager.SetAuthenticationTokenAsync(user, TokenProvider, RefreshTokenName, refreshToken);
@@ -162,6 +164,7 @@ public class AuthService : IAuthService
         {
             UserId = user.Id,
             UserName = user.UserName ?? string.Empty,
+            FirstName = user.FirstName,
             Token = jwtToken,
             RefreshToken = refreshToken,
             ExpiresAt = DateTime.UtcNow.AddMinutes(expiryMinutes)
@@ -169,9 +172,9 @@ public class AuthService : IAuthService
     }
 
     /// <summary>
-    /// Generates a signed JWT access token with standard claims for the given user.
+    /// Generates a signed JWT access token with standard claims and role claims for the given user.
     /// </summary>
-    private string GenerateJwtToken(User user)
+    private async Task<string> GenerateJwtTokenAsync(User user)
     {
         var secret = _configuration["Jwt:Secret"]
             ?? throw new InvalidOperationException("JWT Secret is not configured.");
@@ -182,13 +185,16 @@ public class AuthService : IAuthService
         var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secret));
         var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-        var claims = new[]
+        var claims = new List<Claim>
         {
             new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             new Claim(JwtRegisteredClaimNames.Email, user.Email ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.UniqueName, user.UserName ?? string.Empty),
             new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
         };
+
+        var roles = await _userManager.GetRolesAsync(user);
+        claims.AddRange(roles.Select(r => new Claim(ClaimTypes.Role, r)));
 
         var token = new JwtSecurityToken(
             issuer: issuer,

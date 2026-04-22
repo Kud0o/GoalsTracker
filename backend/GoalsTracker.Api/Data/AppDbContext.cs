@@ -31,6 +31,8 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
         // --- User configuration ---
         builder.Entity<User>(e =>
         {
+            e.Property(u => u.FirstName).HasMaxLength(50).IsRequired();
+            e.Property(u => u.LastName).HasMaxLength(50).IsRequired();
             e.Property(u => u.Timezone).HasMaxLength(50).HasDefaultValue("UTC");
             e.Property(u => u.TotalPoints).HasDefaultValue(0);
             e.Property(u => u.CurrentStreak).HasDefaultValue(0);
@@ -50,8 +52,12 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
         {
             e.Property(g => g.Title).HasMaxLength(200).IsRequired();
             e.Property(g => g.Description).HasMaxLength(2000);
+            e.Property(g => g.ImageUrl).HasMaxLength(500);
             e.Property(g => g.TimelineType).HasConversion<byte>();
-            e.Property(g => g.Status).HasConversion<byte>().HasDefaultValue(GoalStatus.Active);
+            // why: sentinel value avoids EF treating enum default (0) as "use DB default"
+            e.Property(g => g.Status).HasConversion<byte>()
+                .HasDefaultValue(GoalStatus.Active)
+                .HasSentinel((GoalStatus)0);
             e.Property(g => g.PointsAwarded).HasDefaultValue(0);
             e.Property(g => g.CreatedAt).HasDefaultValueSql("GETUTCDATE()");
             e.HasIndex(g => new { g.UserId, g.Status });
@@ -65,6 +71,11 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
                 .WithMany(c => c.Goals)
                 .HasForeignKey(g => g.CategoryId)
                 .OnDelete(DeleteBehavior.SetNull);
+            e.HasIndex(g => g.AssignedByAdminId);
+            e.HasOne(g => g.AssignedByAdmin)
+                .WithMany()
+                .HasForeignKey(g => g.AssignedByAdminId)
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         // --- Category configuration ---
@@ -113,10 +124,12 @@ public class AppDbContext : IdentityDbContext<User, IdentityRole<Guid>, Guid>
                 .WithMany(u => u.PointTransactions)
                 .HasForeignKey(p => p.UserId)
                 .OnDelete(DeleteBehavior.Cascade);
+            // why: NoAction avoids SQL Server multiple cascade path error (1785)
+            // GoalId is nullable, so orphaned transactions keep GoalId value
             e.HasOne(p => p.Goal)
                 .WithMany(g => g.PointTransactions)
                 .HasForeignKey(p => p.GoalId)
-                .OnDelete(DeleteBehavior.SetNull);
+                .OnDelete(DeleteBehavior.NoAction);
         });
 
         // --- AchievementLevel configuration ---

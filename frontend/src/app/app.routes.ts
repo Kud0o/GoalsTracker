@@ -5,6 +5,7 @@
 
 import { Routes } from '@angular/router';
 import { authGuard } from './core/guards/auth.guard';
+import { adminGuard } from './core/guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -95,5 +96,44 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/profile/profile.component').then((m) => m.ProfileComponent),
     canActivate: [authGuard],
+  },
+  {
+    path: 'admin',
+    canActivate: [adminGuard],
+    loadComponent: () =>
+      import('./features/admin/admin-layout/admin-layout.component').then(
+        (m) => m.AdminLayoutComponent
+      ),
+    children: [
+      { path: '', redirectTo: 'users', pathMatch: 'full' },
+      {
+        path: 'users',
+        loadComponent: () =>
+          import('./features/admin/admin-users/admin-users.component').then(
+            (m) => m.AdminUsersComponent
+          ),
+      },
+      {
+        path: 'users/:userId/goals',
+        loadComponent: () =>
+          import('./features/admin/admin-user-goals/admin-user-goals.component').then(
+            (m) => m.AdminUserGoalsComponent
+          ),
+      },
+      {
+        path: 'assign',
+        loadComponent: () =>
+          import('./features/admin/admin-assign-goal/admin-assign-goal.component').then(
+            (m) => m.AdminAssignGoalComponent
+          ),
+      },
+      {
+        path: 'categories',
+        loadComponent: () =>
+          import('./features/admin/admin-categories/admin-categories.component').then(
+            (m) => m.AdminCategoriesComponent
+          ),
+      },
+    ],
   },
 ];

@@ -10,6 +10,16 @@ namespace GoalsTracker.Api.Models.Entities;
 /// </summary>
 public class User : IdentityUser<Guid>
 {
+    /// <summary>User's first name.</summary>
+    [Required]
+    [MaxLength(50)]
+    public string FirstName { get; set; } = string.Empty;
+
+    /// <summary>User's last name.</summary>
+    [Required]
+    [MaxLength(50)]
+    public string LastName { get; set; } = string.Empty;
+
     /// <summary>IANA timezone identifier for the user (e.g. "America/New_York").</summary>
     [Required]
     [MaxLength(50)]

@@ -1,4 +1,14 @@
-/* Navbar component styles - minimal overrides, DaisyUI handles most styling */
+/* Navbar component styles */
 :host {
   display: block;
+}
+
+/* Smooth transition for drawer links */
+:host .menu li a {
+  transition: all 0.2s ease;
+}
+
+/* Active nav link glow for desktop */
+:host .bg-white\/20 {
+  backdrop-filter: blur(4px);
 }

@@ -78,9 +78,32 @@ export class ApiService {
    * @returns An observable that emits the ErrorResponse.
    */
   private handleError(error: any): Observable<never> {
+    let message: string;
+    let errorCode: string;
+
+    if (error.status === 0) {
+      // Network error or service unreachable
+      errorCode = 'network_error';
+      message = 'Unable to connect to the server. Please check your internet connection and try again.';
+    } else if (error.status >= 500) {
+      // Server error
+      errorCode = 'server_error';
+      message = 'The server encountered an error. Please try again later.';
+    } else if (error.status === 401) {
+      errorCode = 'unauthorized';
+      message = 'Your session has expired. Please sign in again.';
+    } else if (error.status === 403) {
+      errorCode = 'forbidden';
+      message = 'You do not have permission to perform this action.';
+    } else {
+      // Business logic errors (400, 404, 409, etc.)
+      errorCode = error.error?.error || 'request_error';
+      message = error.error?.message || 'Something went wrong. Please try again.';
+    }
+
     const errorResponse: ErrorResponse = {
-      error: error.error?.error || 'unknown_error',
-      message: error.error?.message || error.message || 'An unexpected error occurred',
+      error: errorCode,
+      message,
       details: error.error?.details,
     };
     return throwError(() => errorResponse);

@@ -30,6 +30,10 @@ public class CreateGoalDto
     [Required]
     public DateOnly TargetDate { get; set; }
 
+    /// <summary>Optional image URL or base64 data URL for the goal.</summary>
+    [MaxLength(500)]
+    public string? ImageUrl { get; set; }
+
     /// <summary>Optional list of tag names to associate with the goal.</summary>
     public List<string>? TagNames { get; set; }
 }

@@ -48,6 +48,8 @@ public class UserController : ControllerBase
         return Ok(new
         {
             user.Id,
+            user.FirstName,
+            user.LastName,
             user.UserName,
             user.Email,
             user.Timezone,
@@ -83,6 +85,12 @@ public class UserController : ControllerBase
         if (user is null)
             return NotFound();
 
+        if (dto.FirstName is not null)
+            user.FirstName = dto.FirstName;
+
+        if (dto.LastName is not null)
+            user.LastName = dto.LastName;
+
         if (dto.UserName is not null)
         {
             var setResult = await _userManager.SetUserNameAsync(user, dto.UserName);
@@ -114,6 +122,12 @@ public class UserController : ControllerBase
 /// </summary>
 public class UpdateProfileDto
 {
+    /// <summary>The updated first name.</summary>
+    public string? FirstName { get; set; }
+
+    /// <summary>The updated last name.</summary>
+    public string? LastName { get; set; }
+
     /// <summary>The updated display name.</summary>
     public string? UserName { get; set; }
 

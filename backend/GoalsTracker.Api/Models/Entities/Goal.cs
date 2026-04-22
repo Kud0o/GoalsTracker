@@ -43,16 +43,26 @@ public class Goal
     /// <summary>Total points awarded for completing this goal (including bonuses).</summary>
     public int PointsAwarded { get; set; } = 0;
 
+    /// <summary>Optional image URL or base64 data URL for the goal.</summary>
+    [MaxLength(500)]
+    public string? ImageUrl { get; set; }
+
     /// <summary>UTC timestamp when the goal was created.</summary>
     public DateTime CreatedAt { get; set; }
 
     /// <summary>UTC timestamp when the goal was last updated.</summary>
     public DateTime UpdatedAt { get; set; }
 
+    /// <summary>FK to the admin who assigned this goal; null if user-created.</summary>
+    public Guid? AssignedByAdminId { get; set; }
+
     // Navigation properties
 
     /// <summary>The user who owns this goal.</summary>
     public User User { get; set; } = null!;
+
+    /// <summary>The admin who assigned this goal, if applicable.</summary>
+    public User? AssignedByAdmin { get; set; }
 
     /// <summary>Optional category assigned to this goal.</summary>
     public Category? Category { get; set; }

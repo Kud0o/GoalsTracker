@@ -39,8 +39,17 @@ public class GoalResponseDto
     /// <summary>The total points awarded for completing this goal.</summary>
     public int PointsAwarded { get; set; }
 
+    /// <summary>Optional image URL or base64 data URL for the goal.</summary>
+    public string? ImageUrl { get; set; }
+
     /// <summary>The UTC date and time when the goal was created.</summary>
     public DateTime CreatedAt { get; set; }
+
+    /// <summary>Whether this goal was assigned by an administrator.</summary>
+    public bool IsAdminAssigned { get; set; }
+
+    /// <summary>The username of the admin who assigned this goal, if applicable.</summary>
+    public string? AssignedByAdminName { get; set; }
 }
 
 /// <summary>

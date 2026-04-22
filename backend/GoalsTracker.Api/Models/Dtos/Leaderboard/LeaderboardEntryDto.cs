@@ -13,6 +13,12 @@ public class LeaderboardEntryDto
     /// <summary>The display name of the user.</summary>
     public string UserName { get; set; } = string.Empty;
 
+    /// <summary>The user's first name.</summary>
+    public string FirstName { get; set; } = string.Empty;
+
+    /// <summary>The user's last name.</summary>
+    public string LastName { get; set; } = string.Empty;
+
     /// <summary>The user's total accumulated points.</summary>
     public int TotalPoints { get; set; }
 

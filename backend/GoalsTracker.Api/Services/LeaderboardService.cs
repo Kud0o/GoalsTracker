@@ -113,6 +113,8 @@ public class LeaderboardService : ILeaderboardService
                         Rank = index + 1,
                         UserId = u.Id,
                         UserName = u.UserName ?? string.Empty,
+                        FirstName = u.FirstName,
+                        LastName = u.LastName,
                         TotalPoints = u.TotalPoints,
                         GoalsCompleted = goalsCompleted,
                         CurrentStreak = u.CurrentStreak,
@@ -149,6 +151,8 @@ public class LeaderboardService : ILeaderboardService
             {
                 Rank = r.Rank,
                 UserName = r.UserName,
+                FirstName = r.FirstName,
+                LastName = r.LastName,
                 TotalPoints = r.TotalPoints,
                 GoalsCompleted = r.GoalsCompleted,
                 CurrentStreak = r.CurrentStreak,
@@ -193,6 +197,8 @@ public class LeaderboardService : ILeaderboardService
         public int Rank { get; set; }
         public Guid UserId { get; set; }
         public string UserName { get; set; } = string.Empty;
+        public string FirstName { get; set; } = string.Empty;
+        public string LastName { get; set; } = string.Empty;
         public int TotalPoints { get; set; }
         public int GoalsCompleted { get; set; }
         public int CurrentStreak { get; set; }

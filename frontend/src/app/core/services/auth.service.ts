@@ -25,6 +25,24 @@ export class AuthService {
   /** Computed signal exposing the current token response (read-only). */
   readonly currentUser = computed(() => this._currentUser());
 
+  /** Computed signal indicating whether the current user has the Admin role. */
+  readonly isAdmin = computed(() => {
+    const token = this._currentUser()?.token;
+    if (!token) return false;
+    try {
+      const payload = this.decodeToken(token);
+      const roleClaim =
+        payload['http://schemas.microsoft.com/ws/2008/06/identity/claims/role'] ||
+        payload['role'];
+      if (Array.isArray(roleClaim)) {
+        return roleClaim.includes('Admin');
+      }
+      return roleClaim === 'Admin';
+    } catch {
+      return false;
+    }
+  });
+
   constructor(private api: ApiService) {
     this.restoreSession();
   }
@@ -49,8 +67,8 @@ export class AuthService {
    * @param timezone - Optional IANA timezone string.
    * @returns Observable of the token response.
    */
-  register(email: string, userName: string, password: string, timezone?: string): Observable<TokenResponse> {
-    return this.api.post<TokenResponse>('/auth/register', { email, userName, password, timezone }).pipe(
+  register(email: string, userName: string, password: string, timezone?: string, firstName?: string, lastName?: string): Observable<TokenResponse> {
+    return this.api.post<TokenResponse>('/auth/register', { firstName, lastName, email, userName, password, timezone }).pipe(
       tap((response) => this.setSession(response))
     );
   }
@@ -105,6 +123,17 @@ export class AuthService {
     this._currentUser.set(response);
     localStorage.setItem(REFRESH_TOKEN_KEY, response.refreshToken);
     localStorage.setItem(TOKEN_DATA_KEY, JSON.stringify(response));
+  }
+
+  /**
+   * Decodes a JWT token payload from base64.
+   * @param token - The JWT token string.
+   * @returns The decoded payload object.
+   */
+  private decodeToken(token: string): any {
+    const base64Url = token.split('.')[1];
+    const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+    return JSON.parse(atob(base64));
   }
 
   /** Attempts to restore a previous session from localStorage on service init. */

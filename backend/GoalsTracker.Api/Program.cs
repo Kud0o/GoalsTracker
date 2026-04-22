@@ -65,6 +65,8 @@ builder.Services.AddScoped<IGoalService, GoalService>();
 builder.Services.AddScoped<IPointsService, PointsService>();
 builder.Services.AddScoped<ILeaderboardService, LeaderboardService>();
 builder.Services.AddScoped<IAnalyticsService, AnalyticsService>();
+builder.Services.AddScoped<IAdminGoalService, AdminGoalService>();
+builder.Services.AddScoped<IAdminCategoryService, AdminCategoryService>();
 
 // --- CORS ---
 var allowedOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>()
@@ -109,8 +111,11 @@ app.MapHealthChecks("/api/health");
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+    var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole<Guid>>>();
+    var userManager = scope.ServiceProvider.GetRequiredService<UserManager<User>>();
+    var configuration = scope.ServiceProvider.GetRequiredService<IConfiguration>();
     await context.Database.MigrateAsync();
-    await SeedData.SeedAsync(context);
+    await SeedData.SeedAsync(context, roleManager, userManager, configuration);
 }
 
 app.Run();

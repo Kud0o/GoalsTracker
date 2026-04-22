@@ -39,6 +39,7 @@ public class GoalService : IGoalService
             Description = dto.Description,
             TimelineType = dto.TimelineType,
             CategoryId = dto.CategoryId,
+            ImageUrl = dto.ImageUrl,
             TargetDate = dto.TargetDate,
             Status = GoalStatus.Active,
             CreatedAt = DateTime.UtcNow,
@@ -85,6 +86,9 @@ public class GoalService : IGoalService
 
         if (dto.TargetDate.HasValue)
             goal.TargetDate = dto.TargetDate.Value;
+
+        if (dto.ImageUrl is not null)
+            goal.ImageUrl = dto.ImageUrl;
 
         goal.UpdatedAt = DateTime.UtcNow;
 
@@ -164,6 +168,7 @@ public class GoalService : IGoalService
             .Where(g => g.UserId == userId)
             .Include(g => g.Category)
             .Include(g => g.GoalTags).ThenInclude(gt => gt.Tag)
+            .Include(g => g.AssignedByAdmin)
             .AsQueryable();
 
         if (timelineType.HasValue)
@@ -260,6 +265,7 @@ public class GoalService : IGoalService
         var goal = await _context.Goals
             .Include(g => g.Category)
             .Include(g => g.GoalTags).ThenInclude(gt => gt.Tag)
+            .Include(g => g.AssignedByAdmin)
             .FirstAsync(g => g.Id == goalId);
 
         return MapGoalToDto(goal);
@@ -294,7 +300,10 @@ public class GoalService : IGoalService
             Status = goal.Status,
             CompletedAt = goal.CompletedAt,
             PointsAwarded = goal.PointsAwarded,
-            CreatedAt = goal.CreatedAt
+            ImageUrl = goal.ImageUrl,
+            CreatedAt = goal.CreatedAt,
+            IsAdminAssigned = goal.AssignedByAdminId != null,
+            AssignedByAdminName = goal.AssignedByAdmin?.UserName
         };
     }
 }

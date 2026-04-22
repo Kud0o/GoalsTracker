@@ -24,6 +24,9 @@ public class UpdateGoalDto
     /// <summary>The updated target completion date.</summary>
     public DateOnly? TargetDate { get; set; }
 
+    /// <summary>Optional updated image URL or base64 data URL.</summary>
+    public string? ImageUrl { get; set; }
+
     /// <summary>The updated list of tag names to associate with the goal.</summary>
     public List<string>? TagNames { get; set; }
 }

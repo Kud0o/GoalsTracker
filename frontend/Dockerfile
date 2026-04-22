@@ -1,5 +1,5 @@
 # Dockerfile — Multi-stage build for GoalsTracker frontend.
-# Builds Angular app, then serves via Nginx.
+# Builds Tailwind CSS, then Angular app, then serves via Nginx.
 
 FROM node:20-alpine AS build
 WORKDIR /app
@@ -8,8 +8,13 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm ci
 
-# Copy source and build
+# Copy source
 COPY . .
+
+# Build Tailwind CSS (required — Angular doesn't process @plugin "daisyui")
+RUN npx tailwindcss -i src/styles.css -o src/styles.built.css
+
+# Build Angular for production
 RUN npx ng build --configuration production
 
 # Serve stage

@@ -3,11 +3,11 @@
   <input id="nav-drawer" type="checkbox" class="drawer-toggle" />
 
   <div class="drawer-content flex flex-col">
-    <!-- Top navbar -->
-    <div class="navbar bg-base-200 shadow-sm">
+    <!-- Top navbar with gradient background -->
+    <div class="navbar bg-gradient-to-r from-primary to-secondary shadow-lg px-4">
       <!-- Mobile hamburger -->
       <div class="flex-none lg:hidden">
-        <label for="nav-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost">
+        <label for="nav-drawer" aria-label="open sidebar" class="btn btn-square btn-ghost text-white hover:bg-white/10">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                class="inline-block h-6 w-6 stroke-current">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -16,40 +16,120 @@
         </label>
       </div>
 
-      <!-- App title -->
+      <!-- App title with trophy icon -->
       <div class="flex-1">
-        <a routerLink="/dashboard" class="btn btn-ghost text-xl normal-case">GoalsTracker</a>
+        <a routerLink="/dashboard" class="btn btn-ghost text-xl normal-case text-white font-bold gap-2 hover:bg-white/10">
+          <!-- Trophy SVG icon -->
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-yellow-300">
+            <path d="M5 3h14v2h2v6h-2.05a6.5 6.5 0 01-5.45 5.91V19h3v2H7.5v-2h3v-2.09A6.5 6.5 0 015.05 11H3V5h2V3zm2 2v4.5a4.5 4.5 0 109 0V5H7zM5 7v2h.05A6.52 6.52 0 015 7zm14 0c0 .69-.02 1.36-.05 2H19V7z"/>
+          </svg>
+          GoalsTracker
+        </a>
       </div>
 
       <!-- Desktop nav links -->
-      <div class="hidden flex-none lg:block">
-        <ul class="menu menu-horizontal px-1 gap-1">
-          <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-          <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
-          <li><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
-          <li><a routerLink="/analytics" routerLinkActive="active">Analytics</a></li>
+      <div class="hidden flex-none lg:flex items-center gap-4">
+        <ul class="flex gap-1 px-1">
+          <li>
+            <a routerLink="/dashboard" routerLinkActive="bg-white/20"
+               class="text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 text-sm font-medium flex items-center gap-2">
+              <!-- Dashboard icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+              </svg>
+              Dashboard
+            </a>
+          </li>
+          <li>
+            <a routerLink="/goals" routerLinkActive="bg-white/20"
+               class="text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 text-sm font-medium flex items-center gap-2">
+              <!-- Target/Goals icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm0-2a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+              </svg>
+              Goals
+            </a>
+          </li>
+          <li>
+            <a routerLink="/leaderboard" routerLinkActive="bg-white/20"
+               class="text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 text-sm font-medium flex items-center gap-2">
+              <!-- Leaderboard/chart icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+              </svg>
+              Leaderboard
+            </a>
+          </li>
+          <li>
+            <a routerLink="/analytics" routerLinkActive="bg-white/20"
+               class="text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 text-sm font-medium flex items-center gap-2">
+              <!-- Analytics/chart-pie icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+                <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+              </svg>
+              Analytics
+            </a>
+          </li>
+          @if (auth.isAdmin()) {
+            <li>
+              <a routerLink="/admin" routerLinkActive="bg-white/20"
+                 class="text-white/90 hover:text-white hover:bg-white/10 rounded-lg px-3 py-2 transition-all duration-200 text-sm font-medium flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                  <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                </svg>
+                Admin
+              </a>
+            </li>
+          }
         </ul>
       </div>
 
       <!-- User controls -->
-      <div class="flex-none">
+      <div class="flex-none ml-2">
         @if (auth.isAuthenticated()) {
           <div class="dropdown dropdown-end">
-            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder">
-              <div class="bg-neutral text-neutral-content w-10 rounded-full">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar placeholder ring ring-white/30 ring-offset-2 ring-offset-primary">
+              <div class="bg-white text-primary w-10 h-10 rounded-full font-bold flex items-center justify-center leading-none">
                 <span class="text-sm">{{ auth.currentUser()?.userName?.charAt(0)?.toUpperCase() || 'U' }}</span>
               </div>
             </div>
-            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-              <li><a routerLink="/profile">Profile</a></li>
-              <li><a routerLink="/points">Points</a></li>
-              <li><a (click)="logout()">Logout</a></li>
+            <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-50 mt-3 w-56 p-2 shadow-xl border border-base-300">
+              <li class="menu-title text-xs uppercase tracking-wider opacity-60 px-3 pt-2 pb-1">Account</li>
+              <li>
+                <a routerLink="/profile" class="flex items-center gap-3 py-2.5">
+                  <!-- User icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 opacity-60">
+                    <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+                  </svg>
+                  Profile
+                </a>
+              </li>
+              <li>
+                <a routerLink="/points" class="flex items-center gap-3 py-2.5">
+                  <!-- Star icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4 opacity-60 text-warning">
+                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+                  </svg>
+                  Points
+                </a>
+              </li>
+              <div class="divider my-1"></div>
+              <li>
+                <a (click)="logout()" class="flex items-center gap-3 py-2.5 text-error/80 hover:text-error">
+                  <!-- Logout icon -->
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-4 h-4">
+                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+                  </svg>
+                  Logout
+                </a>
+              </li>
             </ul>
           </div>
         } @else {
-          <div class="flex gap-2">
-            <a routerLink="/login" class="btn btn-ghost btn-sm">Login</a>
-            <a routerLink="/register" class="btn btn-primary btn-sm">Register</a>
+          <div class="flex gap-2 items-center">
+            <a routerLink="/login" class="btn btn-ghost btn-sm text-white hover:bg-white/10 font-medium">Login</a>
+            <a routerLink="/register" class="btn btn-sm bg-white text-primary hover:bg-white/90 border-0 font-semibold shadow-md">Register</a>
           </div>
         }
       </div>
@@ -59,21 +139,122 @@
   <!-- Mobile sidebar drawer -->
   <div class="drawer-side z-50">
     <label for="nav-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-    <ul class="menu bg-base-200 min-h-full w-64 p-4 gap-1">
-      <li class="menu-title text-lg font-bold mb-2">GoalsTracker</li>
-      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
-      <li><a routerLink="/goals" routerLinkActive="active">Goals</a></li>
-      <li><a routerLink="/leaderboard" routerLinkActive="active">Leaderboard</a></li>
-      <li><a routerLink="/analytics" routerLinkActive="active">Analytics</a></li>
-      @if (auth.isAuthenticated()) {
-        <li class="mt-4 menu-title">Account</li>
-        <li><a routerLink="/profile">Profile</a></li>
-        <li><a routerLink="/points">Points</a></li>
-        <li><a (click)="logout()">Logout</a></li>
-      } @else {
-        <li class="mt-4"><a routerLink="/login">Login</a></li>
-        <li><a routerLink="/register">Register</a></li>
-      }
-    </ul>
+    <div class="min-h-full w-72 bg-base-100">
+      <!-- Gradient header for drawer -->
+      <div class="bg-gradient-to-r from-primary to-secondary p-6">
+        <div class="flex items-center gap-3">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-7 h-7 text-yellow-300">
+            <path d="M5 3h14v2h2v6h-2.05a6.5 6.5 0 01-5.45 5.91V19h3v2H7.5v-2h3v-2.09A6.5 6.5 0 015.05 11H3V5h2V3zm2 2v4.5a4.5 4.5 0 109 0V5H7zM5 7v2h.05A6.52 6.52 0 015 7zm14 0c0 .69-.02 1.36-.05 2H19V7z"/>
+          </svg>
+          <span class="text-white text-xl font-bold">GoalsTracker</span>
+        </div>
+        @if (auth.isAuthenticated()) {
+          <div class="mt-4 flex items-center gap-3">
+            <div class="avatar placeholder">
+              <div class="bg-white text-primary w-10 h-10 rounded-full font-bold flex items-center justify-center leading-none">
+                <span class="text-sm">{{ auth.currentUser()?.userName?.charAt(0)?.toUpperCase() || 'U' }}</span>
+              </div>
+            </div>
+            <div>
+              <p class="text-white font-medium text-sm">{{ auth.currentUser()?.userName || 'User' }}</p>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Drawer nav links -->
+      <ul class="menu p-4 gap-1">
+        <li>
+          <a routerLink="/dashboard" routerLinkActive="active" class="flex items-center gap-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+              <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"/>
+            </svg>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/goals" routerLinkActive="active" class="flex items-center gap-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm0-2a6 6 0 100-12 6 6 0 000 12zm0-2a4 4 0 100-8 4 4 0 000 8zm0-2a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/>
+            </svg>
+            Goals
+          </a>
+        </li>
+        <li>
+          <a routerLink="/leaderboard" routerLinkActive="active" class="flex items-center gap-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+              <path d="M2 11a1 1 0 011-1h2a1 1 0 011 1v5a1 1 0 01-1 1H3a1 1 0 01-1-1v-5zm6-4a1 1 0 011-1h2a1 1 0 011 1v9a1 1 0 01-1 1H9a1 1 0 01-1-1V7zm6-3a1 1 0 011-1h2a1 1 0 011 1v12a1 1 0 01-1 1h-2a1 1 0 01-1-1V4z"/>
+            </svg>
+            Leaderboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="/analytics" routerLinkActive="active" class="flex items-center gap-3 rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+              <path d="M2 10a8 8 0 018-8v8h8a8 8 0 11-16 0z"/>
+              <path d="M12 2.252A8.014 8.014 0 0117.748 8H12V2.252z"/>
+            </svg>
+            Analytics
+          </a>
+        </li>
+        @if (auth.isAdmin()) {
+          <li>
+            <a routerLink="/admin" routerLinkActive="active" class="flex items-center gap-3 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+                <path fill-rule="evenodd" d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              Admin
+            </a>
+          </li>
+        }
+
+        @if (auth.isAuthenticated()) {
+          <li class="mt-4 menu-title text-xs uppercase tracking-wider opacity-50">Account</li>
+          <li>
+            <a routerLink="/profile" class="flex items-center gap-3 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+                <path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"/>
+              </svg>
+              Profile
+            </a>
+          </li>
+          <li>
+            <a routerLink="/points" class="flex items-center gap-3 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60 text-warning">
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"/>
+              </svg>
+              Points
+            </a>
+          </li>
+          <div class="divider my-1"></div>
+          <li>
+            <a (click)="logout()" class="flex items-center gap-3 rounded-lg text-error/80 hover:text-error">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd"/>
+              </svg>
+              Logout
+            </a>
+          </li>
+        } @else {
+          <div class="divider my-2"></div>
+          <li>
+            <a routerLink="/login" class="flex items-center gap-3 rounded-lg">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5 opacity-60">
+                <path fill-rule="evenodd" d="M3 3a1 1 0 011 1v12a1 1 0 11-2 0V4a1 1 0 011-1zm7.707 3.293a1 1 0 010 1.414L9.414 9H17a1 1 0 110 2H9.414l1.293 1.293a1 1 0 01-1.414 1.414l-3-3a1 1 0 010-1.414l3-3a1 1 0 011.414 0z" clip-rule="evenodd"/>
+              </svg>
+              Login
+            </a>
+          </li>
+          <li>
+            <a routerLink="/register" class="flex items-center gap-3 rounded-lg font-medium text-primary">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" class="w-5 h-5">
+                <path d="M8 9a3 3 0 100-6 3 3 0 000 6zm0 2a6 6 0 016 6H2a6 6 0 016-6zm8-4a1 1 0 10-2 0v1h-1a1 1 0 100 2h1v1a1 1 0 102 0v-1h1a1 1 0 100-2h-1V7z"/>
+              </svg>
+              Register
+            </a>
+          </li>
+        }
+      </ul>
+    </div>
   </div>
 </div>

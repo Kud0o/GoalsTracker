@@ -3,6 +3,8 @@
 Auto-generated from all feature plans. Last updated: 2026-04-21
 
 ## Active Technologies
+- C# / .NET 10 (backend), TypeScript / Angular 19 (frontend) + ASP.NET Identity Roles (built-in), existing EF Core + JWT setup (002-admin-role)
+- SQL Server (EF Core migrations — add columns/roles) (002-admin-role)
 
 - C# / .NET 8 (backend), TypeScript / Angular 18 (frontend) + EF Core SqlServer, ASP.NET Identity, JWT Bearer (backend); Tailwind CSS, DaisyUI (frontend) (001-goal-tracker)
 
@@ -23,6 +25,7 @@ npm test; npm run lint
 C# / .NET 8 (backend), TypeScript / Angular 18 (frontend): Follow standard conventions
 
 ## Recent Changes
+- 002-admin-role: Added C# / .NET 10 (backend), TypeScript / Angular 19 (frontend) + ASP.NET Identity Roles (built-in), existing EF Core + JWT setup
 
 - 001-goal-tracker: Added C# / .NET 8 (backend), TypeScript / Angular 18 (frontend) + EF Core SqlServer, ASP.NET Identity, JWT Bearer (backend); Tailwind CSS, DaisyUI (frontend)
 

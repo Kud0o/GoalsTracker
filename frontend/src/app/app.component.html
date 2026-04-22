@@ -1,5 +1,7 @@
-<!-- GoalsTracker root layout: navbar + content + notification toasts -->
-<app-navbar />
+<!-- GoalsTracker root layout: navbar (only when logged in) + content + toasts -->
+@if (auth.isAuthenticated()) {
+  <app-navbar />
+}
 
 <main class="min-h-screen bg-base-100">
   <router-outlet />

@@ -1,54 +1,69 @@
-# docker-compose.yml — Orchestrates frontend, backend, and SQL Server
-# for local development and testing.
+# docker-compose.yml — GoalsTracker production deployment.
+# Usage: docker compose up -d
 
 services:
   db:
     image: mcr.microsoft.com/mssql/server:2022-latest
+    restart: unless-stopped
     environment:
       ACCEPT_EULA: "Y"
-      SA_PASSWORD: "${SA_PASSWORD:-YourStrong!Passw0rd}"
+      SA_PASSWORD: "${SA_PASSWORD}"
       MSSQL_PID: "Developer"
-    ports:
-      - "1433:1433"
     volumes:
       - sqldata:/var/opt/mssql
     healthcheck:
       test: /opt/mssql-tools18/bin/sqlcmd -S localhost -U sa -P "$$SA_PASSWORD" -Q "SELECT 1" -C -N || exit 1
       interval: 10s
       timeout: 5s
-      retries: 5
+      retries: 10
+      start_period: 30s
+    networks:
+      - internal
 
   backend:
     build:
       context: ./backend
       dockerfile: Dockerfile
-    ports:
-      - "5000:5000"
+    restart: unless-stopped
     environment:
-      ConnectionStrings__DefaultConnection: "Server=db;Database=GoalsTracker;User Id=sa;Password=${SA_PASSWORD:-YourStrong!Passw0rd};TrustServerCertificate=true;"
-      Jwt__Secret: "${JWT_SECRET:-ChangeThisToALongRandomStringAtLeast32Characters!}"
+      ConnectionStrings__DefaultConnection: "Server=db;Database=GoalsTracker;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;"
+      Jwt__Secret: "${JWT_SECRET}"
       Jwt__Issuer: "GoalsTracker"
       Jwt__Audience: "GoalsTracker"
-      Cors__AllowedOrigins__0: "http://localhost"
+      Cors__AllowedOrigins__0: "http://${DOMAIN:-localhost}"
+      Cors__AllowedOrigins__1: "https://${DOMAIN:-localhost}"
+      Admin__SeedEmails__0: "mahmoud.helmy@codelabsys.com"
+      Admin__SeedEmails__1: "basem.mohammad@envnt.co"
       ASPNETCORE_ENVIRONMENT: "Production"
     depends_on:
       db:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:5000/api/health"]
-      interval: 10s
+      test: ["CMD-SHELL", "curl -sf http://localhost:5000/api/health || exit 1"]
+      interval: 15s
       timeout: 5s
       retries: 5
+      start_period: 20s
+    networks:
+      - internal
 
   frontend:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     depends_on:
       backend:
         condition: service_healthy
+    networks:
+      - internal
 
 volumes:
   sqldata:
+
+networks:
+  internal:
+    driver: bridge
