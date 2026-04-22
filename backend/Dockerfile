@@ -18,11 +18,9 @@ RUN dotnet publish GoalsTracker.Api/GoalsTracker.Api.csproj \
 FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS runtime
 WORKDIR /app
 
-# Install curl for healthcheck
-RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/*
-
-# Run as non-root for security
-RUN addgroup --system appgroup && adduser --system --ingroup appgroup appuser
+# Install curl for healthcheck and create non-root user
+RUN apt-get update && apt-get install -y --no-install-recommends curl && rm -rf /var/lib/apt/lists/* \
+    && groupadd --system appgroup && useradd --system --gid appgroup --no-create-home appuser
 USER appuser
 
 COPY --from=build /app/publish .
