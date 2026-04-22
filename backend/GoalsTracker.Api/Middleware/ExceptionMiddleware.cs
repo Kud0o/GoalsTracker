@@ -42,7 +42,7 @@ public class ExceptionMiddleware
         var (statusCode, error, message) = exception switch
         {
             KeyNotFoundException => (HttpStatusCode.NotFound, "NOT_FOUND", exception.Message),
-            UnauthorizedAccessException => (HttpStatusCode.Forbidden, "FORBIDDEN", "You do not have access to this resource."),
+            UnauthorizedAccessException => (HttpStatusCode.Unauthorized, "UNAUTHORIZED", exception.Message),
             ArgumentException => (HttpStatusCode.BadRequest, "VALIDATION_ERROR", exception.Message),
             InvalidOperationException => (HttpStatusCode.BadRequest, "INVALID_OPERATION", exception.Message),
             _ => (HttpStatusCode.InternalServerError, "INTERNAL_ERROR", "An unexpected error occurred. Please try again later.")
