@@ -25,6 +25,8 @@ services:
       context: ./backend
       dockerfile: Dockerfile
     restart: unless-stopped
+    ports:
+      - "5000:5000"
     environment:
       ConnectionStrings__DefaultConnection: "Server=db;Database=GoalsTracker;User Id=sa;Password=${SA_PASSWORD};TrustServerCertificate=true;"
       Jwt__Secret: "${JWT_SECRET}"
